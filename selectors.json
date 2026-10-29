@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "updated": "2026-10-29",
+  "sites": {
+    "chatgpt": {
+      "sidebar": [
+        "nav[aria-label='Chat history'] [role='list']:has(a[href*='/c/'])",
+        "#history",
+        "prepend:nav[aria-label='Chat history']",
+        "prepend:nav:has(a[href*='/c/'])"
+      ],
+      "chatLink": [
+        "#history a[href*='/c/']",
+        "nav a[href*='/c/']",
+        "a[data-testid^='history-item']"
+      ],
+      "composer": [
+        "#prompt-textarea",
+        "form [contenteditable='true']",
+        "form textarea",
+        "main textarea"
+      ],
+      "userMessage": [
+        "[data-user-message-bubble='true']",
+        "[data-message-author-role='user']",
+        "article[data-turn='user']"
+      ],
+      "assistantMessage": [
+        "[data-markdown-text-style='assistant-message']",
+        "[data-message-author-role='assistant']",
+        "article[data-turn='assistant']"
+      ],
+      "userContent": [
+        ".whitespace-pre-wrap"
+      ],
+      "assistantContent": [
+        "[data-markdown-copy='contents']",
+        ".markdown",
+        ".prose"
+      ],
+      "title": [
+        "#history a[data-active]",
+        "nav a[aria-current='page']"
+      ],
+      "strip": [
+        "button",
+        "svg",
+        ".sr-only",
+        "[aria-hidden='true']",
+        "[data-testid*='copy']"
+      ],
+      "codeLang": [
+        "pre|div.flex.items-center"
+      ],
+      "chatPath": [
+        "/c/([\\w-]{8,})"
+      ],
+      "titleStrip": [
+        "^ChatGPT\\s*[-|:]\\s*",
+        "\\s*[-|]\\s*ChatGPT$"
+      ]
+    },
+    "claude": {
+      "sidebar": [
+        "aside[aria-label='Sidebar'] div:has(> [data-row-key] a[href^='/chat/'])",
+        "nav ul:has(> li a[href^='/chat/'])",
+        "nav div:has(> a[href^='/chat/'])",
+        "prepend:nav"
+      ],
+      "chatLink": [
+        "aside[aria-label='Sidebar'] a[href^='/chat/']",
+        "nav a[href^='/chat/']",
+        "a[href^='/chat/']"
+      ],
+      "composer": [
+        "[data-testid='chat-input']",
+        "div.ProseMirror[contenteditable='true']",
+        "fieldset [contenteditable='true']",
+        "textarea"
+      ],
+      "userMessage": [
+        "[data-testid='user-message']",
+        "[data-testid='human-turn']"
+      ],
+      "assistantMessage": [
+        "[data-testid='assistant-message']",
+        ".font-claude-response",
+        ".font-claude-message"
+      ],
+      "userContent": [],
+      "assistantContent": [
+        ".standard-markdown",
+        ".progressive-markdown"
+      ],
+      "title": [
+        "aside[aria-label='Sidebar'] a[href^='/chat/'][aria-current='page']",
+        "[data-testid='chat-title-button'] .truncate",
+        "[data-testid='chat-title-button']",
+        "[data-testid='chat-menu-trigger']"
+      ],
+      "strip": [
+        "button",
+        "svg",
+        ".sr-only",
+        "[aria-hidden='true']"
+      ],
+      "codeLang": [
+        "pre|.text-text-500",
+        "div.relative|.text-text-500"
+      ],
+      "chatPath": [
+        "/chat/([\\w-]{8,})"
+      ],
+      "titleStrip": [
+        "\\s*[-|]\\s*Claude$"
+      ]
+    },
+    "gemini": {
+      "sidebar": [
+        "conversations-list",
+        ".conversations-container",
+        "prepend:side-navigation-content",
+        "prepend:bard-sidenav"
+      ],
+      "chatLink": [
+        "[data-test-id='conversation'] a[href*='/app/']",
+        "a[data-test-id='conversation']",
+        "conversations-list a[href*='/app/']",
+        "[data-test-id='conversation']",
+        "bard-sidenav a[href*='/app/']"
+      ],
+      "composer": [
+        "rich-textarea .ql-editor",
+        "rich-textarea [contenteditable='true']",
+        "[role='textbox'][contenteditable='true']"
+      ],
+      "userMessage": [
+        "user-query",
+        ".user-query-container"
+      ],
+      "assistantMessage": [
+        "model-response",
+        ".model-response-container"
+      ],
+      "userContent": [
+        ".query-text",
+        ".query-content"
+      ],
+      "assistantContent": [
+        "message-content .markdown",
+        ".markdown",
+        "message-content"
+      ],
+      "title": [
+        "conversations-list a[aria-current='page'] .title-text",
+        "[data-test-id='conversation'].selected .conversation-title",
+        ".conversation.selected .conversation-title",
+        "[data-test-id='conversation-title']"
+      ],
+      "strip": [
+        "button",
+        "mat-icon",
+        "svg",
+        ".cdk-visually-hidden",
+        "[aria-hidden='true']",
+        ".code-block-decoration",
+        "sources-list",
+        "message-actions"
+      ],
+      "codeLang": [
+        "code-block|.code-block-decoration span",
+        "code-block|.code-block-decoration"
+      ],
+      "chatPath": [
+        "/app/([0-9a-f]{8,})",
+        "/gem/[^/]+/([0-9a-f]{8,})"
+      ],
+      "titleStrip": [
+        "^Gemini\\s*[-|:]?\\s*",
+        "\\s*[-|]\\s*Gemini$"
+      ]
+    },
+    "grok": {
+      "sidebar": [
+        "ul[data-sidebar='menu']:has(a[href*='/c/'])",
+        "[data-sidebar='group']:has(a[href*='/c/'])",
+        "prepend:[data-sidebar='content']",
+        "prepend:nav:has(a[href*='/c/'])"
+      ],
+      "chatLink": [
+        "[data-sidebar] a[href*='/c/']",
+        "nav a[href*='/c/']",
+        "a[href^='/c/']"
+      ],
+      "composer": [
+        "form textarea",
+        "form .tiptap[contenteditable='true']",
+        "textarea[aria-label]",
+        "[contenteditable='true']"
+      ],
+      "userMessage": [
+        "[id^='response-'].items-end .message-bubble",
+        "div.items-end > .message-bubble"
+      ],
+      "assistantMessage": [
+        "[id^='response-'].items-start .message-bubble",
+        "div.items-start > .message-bubble"
+      ],
+      "userContent": [],
+      "assistantContent": [
+        ".response-content-markdown"
+      ],
+      "title": [],
+      "strip": [
+        "button",
+        "svg",
+        ".sr-only",
+        "[aria-hidden='true']"
+      ],
+      "codeLang": [
+        "pre|.font-mono.text-xs",
+        "div.not-prose|span"
+      ],
+      "chatPath": [
+        "/c/([\\w-]{8,})",
+        "/chat/([\\w-]{8,})"
+      ],
+      "titleStrip": [
+        "\\s*[-|]\\s*Grok$"
+      ]
+    }
+  }
+}

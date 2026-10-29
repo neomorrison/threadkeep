@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ThreadKeep Privacy Policy</title>
+<style>
+  :root { --bg: #ffffff; --fg: #1f2328; --muted: #59636e; --accent: #5b5bd6; --line: #e5e7eb; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #16161a; --fg: #ececf1; --muted: #a1a1aa; --accent: #8b8bf0; --line: #2e2e35; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.65 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 16px 80px; }
+  h1 { font-size: 30px; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 32px 0 8px; }
+  .muted { color: var(--muted); }
+  a { color: var(--accent); }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  td, th { text-align: left; border-bottom: 1px solid var(--line); padding: 8px 6px; vertical-align: top; }
+</style>
+</head>
+<body>
+<main>
+  <h1>ThreadKeep Privacy Policy</h1>
+  <p class="muted">Applies to every ThreadKeep edition on the Chrome Web Store (all sites, ChatGPT, Claude, Gemini and Grok). Last updated October 29, 2026.</p>
+
+  <h2>The short version</h2>
+  <p>ThreadKeep keeps your folders and saved chats in your own browser. We do not run a server that receives your chats, we do not have accounts, and we do not use analytics or tracking of any kind. The only outside services involved are Creem (for payments and license keys, if you buy Pro), reached through our small license server, and a static file of page selectors that ThreadKeep downloads to keep working when sites change.</p>
+
+  <h2>What ThreadKeep stores on your device</h2>
+  <table>
+    <tr><th>Data</th><th>Why</th><th>Where</th></tr>
+    <tr><td>Folder names, colors, tags, pins, and the title and link of chats you put in folders</td><td>To show your folders</td><td>chrome.storage in your browser</td></tr>
+    <tr><td>The text of chats you open on supported sites</td><td>So you can search and export them</td><td>IndexedDB in your browser, inside the extension</td></tr>
+    <tr><td>Your export count for the current month and your Free or Pro status</td><td>To apply the Free plan limits</td><td>chrome.storage in your browser</td></tr>
+    <tr><td>Your Pro license key, its activation id for this browser, and when it was last confirmed (only if you enter a key)</td><td>To keep Pro on and re-check it with Creem</td><td>chrome.storage in your browser</td></tr>
+  </table>
+  <p>None of this is sent to us or to anyone else. You can turn off chat saving, or delete all saved chat text, from the ThreadKeep toolbar popup. Uninstalling ThreadKeep deletes everything it stored.</p>
+
+  <h2>Where ThreadKeep runs</h2>
+  <p>ThreadKeep only reads pages on chatgpt.com, claude.ai, gemini.google.com and grok.com (single-site editions only read their one site). It reads the chat list and the open conversation so it can show folders and save chats for search. It does not read your passwords, does not change what you send to the AI, and does not run on any other website.</p>
+
+  <h2>Payments and license keys (Creem)</h2>
+  <p>If you buy Pro, checkout happens on Creem (creem.io), our payment provider and merchant of record, which handles card processing, sales tax and receipts. Creem and its payment processors receive what you enter at checkout, such as your email, billing country and card details. ThreadKeep never sees your card details. Creem emails you a license key with your receipt.</p>
+  <p>When you paste the key into ThreadKeep, the extension sends it to our license server, which passes it to Creem's license API to activate it on this browser, with a short device label made of the ThreadKeep edition and your operating system name (for example "ThreadKeep on macOS"). After that, ThreadKeep checks about once a day, the same way, whether the key is still valid. These requests contain the license key, the activation id and that label, and nothing about your chats or browsing. Our license server exists only because Creem's license API needs a secret that cannot ship inside a browser extension: it forwards each request to Creem and returns the answer, has no database, and stores nothing. Its short-lived operational logs record the time, the result and a one-way fingerprint of the key, never the key itself or your IP address. The server is hosted on Railway; see <a href="https://railway.com/legal/privacy">Railway's privacy policy</a>.</p>
+  <p>Each key can be active on 3 browsers; "Remove license from this browser" on the ThreadKeep options page frees a slot. You can find your key again in your Creem receipt email or Creem's customer portal. See <a href="https://www.creem.io/privacy">Creem's privacy policy</a>.</p>
+
+  <h2>Selector updates</h2>
+  <p>To keep working after ChatGPT, Claude, Gemini or Grok change their pages, ThreadKeep downloads a small public file (selectors.json) from GitHub Pages. It contains page selectors only, never code, and the request carries no information about you or your chats. GitHub may keep standard server logs such as IP addresses; see <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
+
+  <h2>What we never do</h2>
+  <ul>
+    <li>Sell or share your data.</li>
+    <li>Use your data for advertising, credit decisions or anything unrelated to organizing your chats.</li>
+    <li>Collect analytics, crash reports or browsing history.</li>
+    <li>Let a person read your chats. We have no copy of them.</li>
+  </ul>
+  <p>ThreadKeep's use of information follows the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
+
+  <h2>Children</h2>
+  <p>ThreadKeep is not directed at children under 13 and does not knowingly collect any data from them.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the new version will be posted here with a new date. Material changes will also be noted in the extension's release notes.</p>
+
+  <h2>Contact</h2>
+  <p>ThreadKeep is made by Neo Morrison LLC, 2601 E Chapman Ave 235, Fullerton, CA 92831, United States. Questions: <a href="mailto:neo8755@gmail.com">neo8755@gmail.com</a></p>
+</main>
+</body>
+</html>
