@@ -5,161 +5,319 @@
 <link rel="canonical" href="https://threadkeep.neomorrison.com/">
 <link rel="icon" href="icon-128.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#16151a;--soft:#55525e;--rule:#e7e5ec;--hover:#f3f2f7;--a:#4f46e5;
---thesis:#6366f1;--sources:#0ea5e9;--code:#10b981;--travel:#f97316;--jobs:#ec4899}
+:root{--ink:#121117;--soft:#56535f;--faint:#8b8895;--rule:#e8e6ee;--wash:#f5f4f8;--a:#4f46e5;
+--thesis:#6366f1;--code:#10b981;--travel:#f97316;--jobs:#ec4899;--ease:cubic-bezier(.16,1,.3,1)}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scrollbar-color:#c9c6d3 #fff}
-body{margin:0;background:#fff;color:var(--ink);font:400 17px/1.6 "Schibsted Grotesk",system-ui,sans-serif;font-feature-settings:"tnum" 0}
-::selection{background:#dcd9fb;color:var(--ink)}
-a{color:var(--a);text-decoration-thickness:1px;text-underline-offset:3px}
-a:focus-visible,summary:focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:2px}
-.page{display:grid;grid-template-columns:232px minmax(0,1fr);max-width:1180px;margin:0 auto}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font:400 17px/1.6 "Schibsted Grotesk",system-ui,sans-serif}
+::selection{background:#dcd9fb}
+a{color:var(--a);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 
-/* The sidebar is the site map, drawn like ThreadKeep's own folder panel. */
-.tree{position:sticky;top:0;align-self:start;height:100vh;padding:28px 0 28px 24px;font-size:15px;display:flex;flex-direction:column}
-.tree .brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--ink);text-decoration:none;margin-bottom:26px}
-.tree .brand img{width:22px;height:22px;border-radius:5px}
-.tree ul{list-style:none;margin:0;padding:0}
-.tree li a{display:flex;align-items:center;gap:10px;padding:6px 10px;margin-left:-10px;border-radius:6px;color:var(--ink);text-decoration:none}
-.tree li a:hover{background:var(--hover)}
-.tree li.sub a{padding-left:30px}
-.sq{width:10px;height:10px;border-radius:2px;flex:none}
-.tree .foot{margin-top:auto;font-size:13px;color:var(--soft)}
-.tree .foot a{color:var(--soft)}
+header{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.scrolled{border-bottom-color:var(--rule)}
+.bar{display:flex;align-items:center;gap:28px;height:64px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--ink);text-decoration:none;margin-right:auto}
+.brand img{width:26px;height:26px;border-radius:6px}
+.bar nav a{color:var(--soft);text-decoration:none;font-size:15px}.bar nav a:hover{color:var(--ink)}
+.bar nav{display:flex;gap:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-weight:500;text-decoration:none;transition:transform .2s var(--ease),background .2s}
+.btn:hover{background:#2c2a35;transform:translateY(-1px)}
+.btn.small{padding:8px 14px;font-size:15px;border-radius:8px}
+.btn.ghost{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}.btn.ghost:hover{background:var(--wash)}
 
-main{padding:28px 40px 0 56px;min-width:0}
-.hero{display:grid;grid-template-columns:minmax(0,1fr) 242px;gap:64px;align-items:center;padding:36px 0 72px;border-bottom:1px solid var(--rule)}
-h1{font-size:clamp(44px,6.4vw,76px);line-height:.98;font-weight:700;letter-spacing:-.035em;margin:0 0 28px;text-wrap:balance}
-.lede{font-size:20px;line-height:1.5;color:var(--soft);max-width:31em;margin:0 0 32px}
-.cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
-.btn{background:var(--ink);color:#fff;padding:13px 20px;border-radius:8px;font-weight:500;text-decoration:none;transition:background .2s cubic-bezier(.16,1,.3,1)}
-.btn:hover{background:#34313d}
-.cta span{font-size:14px;color:var(--soft)}
-.hero img{display:block;width:242px;height:auto}
+.hero{text-align:center;padding:88px 0 0}
+h1{font-size:clamp(46px,8vw,92px);line-height:.95;font-weight:800;letter-spacing:-.04em;margin:0 auto 26px;max-width:11ch;text-wrap:balance}
+.lede{font-size:clamp(18px,2vw,21px);line-height:1.5;color:var(--soft);max-width:34em;margin:0 auto 34px}
+.ctas{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.fine{font-size:14px;color:var(--faint);margin-top:16px}
+.sites{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:15px;color:var(--soft);font-weight:500}
 
-section{padding:80px 0;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
-h2{font-size:32px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 18px;display:flex;align-items:center;gap:14px}
-h2 .sq{width:14px;height:14px;border-radius:3px}
-.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start}
-p{margin:0 0 16px;max-width:36em}.soft{color:var(--soft)}
-kbd{font:500 13px/1 ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid #d6d3de;border-bottom-width:2px;border-radius:4px;padding:3px 6px}
-.shot{display:block;max-width:100%;height:auto}
-.shot.edge{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+/* The demo: one long list sorts itself into folders. */
+.stage{margin:64px auto 0;max-width:900px;display:grid;grid-template-columns:300px 1fr;border:1px solid var(--rule);border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(18,17,23,.25),0 2px 6px rgba(18,17,23,.04);text-align:left;background:#fff}
+.side{background:#f9f9fb;border-right:1px solid var(--rule);padding:16px 12px;min-height:520px}
+.side .top{display:flex;align-items:center;justify-content:space-between;padding:0 6px 12px;font-size:13px;color:var(--faint)}
+.toggle{display:inline-flex;background:#eceaf1;border-radius:8px;padding:3px}
+.toggle button{font:inherit;font-size:13px;border:0;background:none;padding:4px 10px;border-radius:6px;color:var(--soft);cursor:pointer}
+.toggle button[aria-pressed=true]{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.list{position:relative}
+.fh{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:10px 6px 4px;opacity:0;transition:opacity .4s}
+.sorted .fh{opacity:1}
+.fh .n{margin-left:auto;font-weight:500;color:var(--faint);font-size:12px}
+.sq{width:10px;height:10px;border-radius:2.5px;flex:none}
+.chat{display:flex;align-items:center;gap:8px;font-size:14px;padding:6px 8px;border-radius:7px;white-space:nowrap;overflow:hidden;will-change:transform}
+.sorted .chat{padding-left:24px}
+.chat:hover{background:#efeef4}
+.chat .t{overflow:hidden;text-overflow:ellipsis}
+.tag{flex:none;font-size:10.5px;font-weight:500;color:var(--soft);background:#ebe9f0;border-radius:4px;padding:1px 5px}
+.main{padding:28px 32px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.main .q{align-self:flex-end;background:var(--wash);border-radius:16px;padding:10px 14px;max-width:80%;font-size:15px}
+.main .a{font-size:15px;color:var(--soft);line-height:1.6}
+.main pre{margin:0;background:var(--wash);border-radius:10px;padding:14px 16px;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink);overflow:hidden}
+.caption{text-align:center;font-size:14px;color:var(--faint);margin-top:16px}
 
-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-td{padding:18px 0;border-top:1px solid var(--rule);vertical-align:baseline}
-tr:last-child td{border-bottom:1px solid var(--rule)}
-td.plan{font-weight:700;width:130px}
-td.price{text-align:right;font-weight:700;font-size:20px;white-space:nowrap;padding-left:20px}
-td small{display:block;color:var(--soft);font-size:14px}
-td.price a{text-decoration:none}td.price a:hover{text-decoration:underline}
+section.feat{padding:140px 0 0}
+.feat .row{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.feat.flip .copy{order:2}
+h2{font-size:clamp(34px,4.4vw,52px);line-height:1.02;font-weight:800;letter-spacing:-.035em;margin:0 0 18px;text-wrap:balance}
+.copy p{color:var(--soft);font-size:18px;margin:0 0 14px;max-width:30em}
+.copy .chip{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--ink);margin-bottom:18px}
+kbd{font:500 13px/1 ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid #d6d3de;border-bottom-width:2px;border-radius:5px;padding:3px 6px;color:var(--ink)}
+.pic{background:var(--wash);border-radius:20px;padding:40px;display:flex;justify-content:center;align-items:center}
+.pic img{display:block;max-width:100%;height:auto;border-radius:10px;box-shadow:0 20px 40px -20px rgba(18,17,23,.3),0 0 0 1px rgba(18,17,23,.06)}
 
-details{border-top:1px solid var(--rule)}details:last-of-type{border-bottom:1px solid var(--rule)}
-summary{cursor:pointer;padding:16px 0;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px}
-summary::after{content:"+";color:var(--soft);font-weight:400}details[open] summary::after{content:"−"}
-details p{color:var(--soft);padding-bottom:6px}
-.guides{list-style:none;padding:0;margin:0;columns:2;column-gap:40px}.guides li{padding:5px 0;break-inside:avoid}
-footer{padding:40px 0 56px;font-size:14px;color:var(--soft)}
+.private{padding:140px 0 0;text-align:center}
+.private h2{max-width:14ch;margin:0 auto 18px}
+.private p{color:var(--soft);font-size:18px;max-width:34em;margin:0 auto}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:48px;border-top:1px solid var(--rule)}
+.facts div{padding:26px 20px;border-right:1px solid var(--rule)}.facts div:last-child{border-right:0}
+.facts b{display:block;font-size:20px;margin-bottom:4px}.facts span{color:var(--soft);font-size:15px}
 
-@media (max-width:900px){
-.page{grid-template-columns:1fr}
-.tree{position:static;height:auto;padding:20px 16px 0;flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px 14px}
-.tree .brand{margin:0 auto 0 0}.tree ul{display:contents}.tree li.sub{display:none}
-.tree li a{margin:0;padding:4px 6px}.tree .foot{display:none}
-main{padding:0 16px}
-.hero{grid-template-columns:1fr;gap:40px;padding:48px 0 56px}.hero img{justify-self:start}
-.cols{grid-template-columns:1fr;gap:32px}
-section{padding:56px 0}.guides{columns:1}
+#pricing{padding:140px 0 0;text-align:center;scroll-margin-top:64px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;text-align:left;border:1px solid var(--rule);border-radius:18px;overflow:hidden}
+.plan{padding:32px 28px;border-right:1px solid var(--rule);display:flex;flex-direction:column}
+.plan:last-child{border-right:0}
+.plan.best{background:var(--ink);color:#fff}.plan.best .soft,.plan.best li{color:#c9c6d6}
+.plan h3{margin:0 0 4px;font-size:17px}
+.plan .p{font-size:44px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin:10px 0 2px}
+.plan .p small{font-size:16px;font-weight:500;letter-spacing:0}
+.plan ul{list-style:none;padding:0;margin:22px 0 28px;font-size:15px;color:var(--soft)}
+.plan li{padding:5px 0 5px 22px;position:relative}
+.plan li::before{content:"";position:absolute;left:2px;top:13px;width:9px;height:5px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg)}
+.plan .btn{margin-top:auto;justify-content:center}
+.plan.best .btn{background:#fff;color:var(--ink)}.plan.best .btn:hover{background:#ecebf2}
+.soft{color:var(--soft)}
+.note{font-size:14px;color:var(--faint);margin-top:18px}
+
+#help{padding:140px 0 0;scroll-margin-top:64px}
+.faq{max-width:760px;margin:40px auto 0}
+details{border-top:1px solid var(--rule)}details:last-child{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;padding:20px 0;font-weight:500;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--faint);font-size:22px;line-height:1}details[open] summary::after{content:"−"}
+details p{color:var(--soft);margin:0 0 20px}
+.center{text-align:center}
+
+.end{margin:140px 0 0;padding:96px 24px;background:var(--ink);color:#fff;border-radius:24px;text-align:center}
+.end h2{color:#fff;max-width:13ch;margin:0 auto 18px}
+.end p{color:#c9c6d6;margin:0 auto 30px;max-width:30em}
+.end .btn{background:#fff;color:var(--ink)}
+
+footer{padding:56px 0 64px;font-size:14px;color:var(--faint)}
+.fcols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer a{color:var(--soft);text-decoration:none;margin-right:20px}footer a:hover{color:var(--ink)}
+.guides{columns:2;column-gap:32px;margin:0;padding:0;list-style:none;font-size:14px}.guides li{padding:3px 0}
+
+@media (max-width:860px){
+.bar nav{display:none}
+.hero{padding-top:56px}
+.stage{grid-template-columns:1fr}.main{display:none}.side{border-right:0;min-height:0}
+section.feat{padding-top:96px}.feat .row{grid-template-columns:1fr;gap:36px}.feat.flip .copy{order:0}
+.pic{padding:20px}
+.facts,.plans{grid-template-columns:1fr}.facts div,.plan{border-right:0;border-bottom:1px solid var(--rule)}.plan:last-child{border-bottom:0}
+.private,#pricing,#help{padding-top:96px}.end{margin-top:96px;padding:64px 20px}
+.guides{columns:1}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style></head>
 <body>
-<div class="page">
-<nav class="tree" aria-label="Sections">
+<header id="top"><div class="wrap bar">
 <a class="brand" href="./"><img src="icon-128.png" alt="">ThreadKeep</a>
-<ul>
-<li><a href="#search"><span class="sq" style="background:var(--thesis)"></span>Search</a></li>
-<li><a href="#export"><span class="sq" style="background:var(--code)"></span>Export</a></li>
-<li><a href="#privacy"><span class="sq" style="background:var(--sources)"></span>Privacy</a></li>
-<li><a href="#pricing"><span class="sq" style="background:var(--travel)"></span>Pricing</a></li>
-<li><a href="#help"><span class="sq" style="background:var(--jobs)"></span>Help</a></li>
-</ul>
-<div class="foot"><a href="mailto:contact@neomorrison.com">contact@neomorrison.com</a></div>
-</nav>
+<nav aria-label="Main"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#help">Help</a></nav>
+<a class="btn small" href="#pricing">Get ThreadKeep</a>
+</div></header>
 
 <main>
-<div class="hero">
-<div>
+<div class="wrap hero">
 <h1>Put your AI chats in folders.</h1>
-<p class="lede">ChatGPT, Claude, Gemini and Grok each keep your history as one long list. ThreadKeep is a Chrome extension that adds folders, tags and search to the sidebar you already use, and saves any chat as Markdown or PDF.</p>
-<div class="cta"><a class="btn" href="#pricing">See pricing</a><span>Free plan included. In Chrome Web Store review now.</span></div>
+<p class="lede">ChatGPT, Claude, Gemini and Grok each bury your work in one endless list. ThreadKeep adds folders, tags and search right inside their sidebars.</p>
+<div class="ctas"><a class="btn" href="#pricing">Get ThreadKeep, free</a><a class="btn ghost" href="#features">See how it works</a></div>
+<p class="fine">Chrome extension · No account · Your chats never leave your browser</p>
+
+<div class="stage" aria-label="Demo: a chat sidebar sorting into folders">
+<div class="side" id="demo">
+<div class="top"><span id="state">Your sidebar today</span>
+<div class="toggle" role="group" aria-label="Demo view"><button type="button" data-v="list" aria-pressed="true">List</button><button type="button" data-v="folders" aria-pressed="false">Folders</button></div></div>
+<div class="list" id="list"></div>
 </div>
-<img src="shots/panel.png" width="242" height="684" alt="ThreadKeep's panel in the ChatGPT sidebar: a search box, tags, and folders named Thesis, Sources, Code snippets, Job search and Travel">
+<div class="main" aria-hidden="true">
+<div class="q">Write a Python decorator that retries a flaky function with exponential backoff.</div>
+<div class="a">Here is a small decorator that retries with backoff and jitter:</div>
+<pre>def retry(times=5, base=0.5):
+    def wrap(fn):
+        def inner(*a, **kw):
+            for i in range(times):
+                try:
+                    return fn(*a, **kw)
+                except Exception:
+                    if i == times - 1:
+                        raise
+                    time.sleep(base * 2 ** i)
+        return inner
+    return wrap</pre>
+</div>
+</div>
+<p class="caption">Same chats, same sidebar. Click "List" and "Folders" to compare.</p>
 </div>
 
-<section id="search"><div class="cols">
-<div>
-<h2><span class="sq" style="background:var(--thesis)"></span>Find it again</h2>
-<p>Press <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>K</kbd> (<kbd>⌘</kbd> on a Mac) and type what you remember: a word from the answer, a function name, a place. Search covers every chat you've opened, on all four sites.</p>
-<p class="soft">Folders work the same everywhere. Drag a chat in, nest folders, color and pin them. A Thesis folder can hold a ChatGPT chat next to a Claude one.</p>
+<div class="wrap" id="features">
+<section class="feat"><div class="row">
+<div class="copy">
+<span class="chip"><span class="sq" style="background:var(--thesis)"></span>Folders</span>
+<h2>Drag a chat in. It stays put.</h2>
+<p>Folders live in the sidebar you already use, on every site. Nest them, color them, pin the ones you open every day.</p>
+<p>One Thesis folder can hold a ChatGPT chat and a Claude chat side by side.</p>
 </div>
-<img class="shot" src="shots/search.png" width="380" height="420" alt="Search results for the word budget across Claude and Gemini chats">
+<div class="pic"><img src="shots/panel.png" width="242" height="684" alt="ThreadKeep's folder panel inside the ChatGPT sidebar" loading="lazy"></div>
 </div></section>
 
-<section id="export">
-<h2><span class="sq" style="background:var(--code)"></span>Keep a copy</h2>
-<p>Export one chat or a whole folder to Markdown, PDF, JSON or plain text. Code keeps its language and indentation, and tables stay tables.</p>
-<img class="shot edge" src="shots/export.png" width="820" height="580" alt="A ChatGPT chat exported as a printable page, with its Python code block intact">
-</section>
-
-<section id="privacy"><div class="cols">
-<div>
-<h2><span class="sq" style="background:var(--sources)"></span>It stays on your computer</h2>
-<p>No account, no sign-up, no analytics. Folders and saved chat text live in your browser's storage. We never see them.</p>
+<section class="feat flip"><div class="row">
+<div class="copy">
+<span class="chip"><span class="sq" style="background:var(--code)"></span>Search</span>
+<h2>Find that one answer from three weeks ago.</h2>
+<p>Press <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>K</kbd> and type what you remember. Search covers titles, answers and code from every chat you've opened, across all four sites.</p>
 </div>
-<div>
-<p class="soft">The one thing that leaves your browser is a license key, if you buy Pro, so it can be checked. ThreadKeep runs only on chatgpt.com, claude.ai, gemini.google.com and grok.com. Full details in the <a href="privacy.html">privacy policy</a>.</p>
-</div>
+<div class="pic"><img src="shots/search.png" width="380" height="420" alt="Search results for the word budget across Claude and Gemini chats" loading="lazy"></div>
 </div></section>
 
-<section id="pricing">
-<h2><span class="sq" style="background:var(--travel)"></span>Pricing</h2>
-<table>
-<tr><td class="plan">Free</td><td>5 folders, 10 exports a month, unlimited search</td><td class="price">$0</td></tr>
-<tr><td class="plan">Monthly</td><td>Unlimited folders and exports, whole-folder export<small>Cancel any time</small></td><td class="price"><a href="https://license-live-production.up.railway.app/buy/monthly">$4.99/mo</a></td></tr>
-<tr><td class="plan">Lifetime</td><td>Everything in Monthly, paid once<small>Refundable within 14 days</small></td><td class="price"><a href="https://license-live-production.up.railway.app/buy/lifetime">$59</a></td></tr>
-</table>
-<p class="soft" style="margin-top:20px;font-size:15px">One license key covers all four sites on up to 3 browsers. Creem handles payment as merchant of record, so your statement shows CREEM.IO. See the <a href="terms.html">terms and refund policy</a>.</p>
-</section>
-
-<section id="help"><div class="cols">
-<div>
-<h2><span class="sq" style="background:var(--jobs)"></span>Help</h2>
-<details><summary>What happens when ChatGPT changes its layout?</summary><p>ThreadKeep checks the page each time it loads. If something moved, it hides its panel and says a fix is coming instead of breaking the site. The fix ships as a small data update, without waiting for a store review.</p></details>
-<details><summary>Where do I get my license key?</summary><p>It's emailed right after checkout. Paste it into ThreadKeep's settings under "Enter license key".</p></details>
-<details><summary>Is ThreadKeep made by OpenAI or Anthropic?</summary><p>No. It's an independent tool made by Neo Morrison LLC.</p></details>
-<p style="margin-top:24px">Anything else: <a href="mailto:contact@neomorrison.com">contact@neomorrison.com</a>. A person answers, usually within a day.</p>
+<section class="feat"><div class="row">
+<div class="copy">
+<span class="chip"><span class="sq" style="background:var(--travel)"></span>Export</span>
+<h2>Keep a clean copy of anything.</h2>
+<p>Save one chat or a whole folder as Markdown, PDF, JSON or plain text. Code keeps its indentation and tables stay tables.</p>
 </div>
-<div>
-<ul class="guides" style="columns:1">
+<div class="pic"><img src="shots/export.png" width="820" height="580" alt="A chat exported as a printable page with its code block intact" loading="lazy"></div>
+</div></section>
+</div>
+
+<div class="wrap private">
+<h2>Your chats stay on your computer.</h2>
+<p>ThreadKeep has no servers that see your conversations. Folders, tags and saved text live in your browser's own storage.</p>
+<div class="facts">
+<div><b>No account</b><span>Install it and it works.</span></div>
+<div><b>No tracking</b><span>No analytics, no ads, ever.</span></div>
+<div><b>Four sites only</b><span>Runs on ChatGPT, Claude, Gemini and Grok, nowhere else.</span></div>
+</div>
+</div>
+
+<div class="wrap" id="pricing">
+<h2>Free to start. Pay once if you love it.</h2>
+<p class="soft" style="font-size:18px;margin:0">One license works on all four sites and up to 3 browsers.</p>
+<div class="plans">
+<div class="plan"><h3>Free</h3><span class="soft">For trying it out</span><div class="p">$0</div>
+<ul><li>5 folders</li><li>10 exports a month</li><li>Unlimited search</li></ul>
+<a class="btn ghost" href="#help">Install free</a></div>
+<div class="plan best"><h3>Lifetime</h3><span class="soft">Most people pick this</span><div class="p">$59 <small>once</small></div>
+<ul><li>Unlimited folders and exports</li><li>Export a whole folder at once</li><li>Every future update</li><li>14-day refund</li></ul>
+<a class="btn" href="https://license-live-production.up.railway.app/buy/lifetime">Buy lifetime</a></div>
+<div class="plan"><h3>Monthly</h3><span class="soft">Cancel any time</span><div class="p">$4.99 <small>/ month</small></div>
+<ul><li>Unlimited folders and exports</li><li>Export a whole folder at once</li><li>Cancel in one click</li></ul>
+<a class="btn ghost" href="https://license-live-production.up.railway.app/buy/monthly">Start monthly</a></div>
+</div>
+<p class="note">Checkout by Creem, our merchant of record; your statement shows CREEM.IO. Your license key arrives by email. <a href="terms.html">Terms and refunds</a></p>
+</div>
+
+<div class="wrap" id="help">
+<h2 class="center">Questions</h2>
+<div class="faq">
+<details><summary>How do I install it?</summary><p>ThreadKeep is in Chrome Web Store review right now. The install button goes live here the day it's approved. Want a nudge when it does? Email <a href="mailto:contact@neomorrison.com?subject=Tell%20me%20when%20ThreadKeep%20is%20live">contact@neomorrison.com</a>.</p></details>
+<details><summary>What happens when ChatGPT changes its layout?</summary><p>ThreadKeep checks the page every time it loads. If something moved, it steps aside and says a fix is coming instead of breaking the site, and the fix ships within hours as a small data update.</p></details>
+<details><summary>Where does my license key go?</summary><p>It's emailed right after checkout. Paste it into ThreadKeep's settings under "Enter license key".</p></details>
+<details><summary>Is it made by OpenAI or Anthropic?</summary><p>No. ThreadKeep is an independent tool from Neo Morrison LLC.</p></details>
+</div>
+</div>
+
+<div class="wrap"><div class="end">
+<h2>Stop scrolling for that chat.</h2>
+<p>Folders, search and export for every AI you use. Free to start.</p>
+<a class="btn" href="#pricing">Get ThreadKeep</a>
+</div></div>
+</main>
+
+<footer><div class="wrap fcols">
+<div><a class="brand" href="./" style="margin-bottom:12px"><img src="icon-128.png" alt="">ThreadKeep</a>
+<p style="max-width:28em;margin:12px 0">Neo Morrison LLC, 2601 E Chapman Ave 235, Fullerton, CA 92831. Not affiliated with OpenAI, Anthropic, Google or xAI.</p>
+<a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:contact@neomorrison.com">Contact</a></div>
+<ul class="guides">
 <li><a href="organize-chatgpt-chats-into-folders.html">Organize ChatGPT chats into folders</a></li>
 <li><a href="organize-claude-chats.html">Organize your Claude chats</a></li>
-<li><a href="search-all-chatgpt-conversations.html">Search all your ChatGPT conversations</a></li>
-<li><a href="export-chatgpt-chat-to-markdown-pdf.html">Export a ChatGPT chat to Markdown or PDF</a></li>
-<li><a href="export-claude-chat-to-markdown-pdf.html">Export a Claude chat to Markdown or PDF</a></li>
+<li><a href="search-all-chatgpt-conversations.html">Search all your ChatGPT chats</a></li>
+<li><a href="export-chatgpt-chat-to-markdown-pdf.html">Export ChatGPT to Markdown or PDF</a></li>
+<li><a href="export-claude-chat-to-markdown-pdf.html">Export Claude to Markdown or PDF</a></li>
 <li><a href="export-gemini-chat.html">Export a Gemini chat</a></li>
 <li><a href="export-grok-conversation.html">Export a Grok chat</a></li>
 <li><a href="threadkeep-vs-chatgpt-projects.html">ThreadKeep vs ChatGPT Projects</a></li>
 </ul>
-</div>
-</div></section>
+</div></footer>
 
-<footer>
-<a href="privacy.html">Privacy</a> · <a href="terms.html">Terms and refunds</a> · <a href="mailto:contact@neomorrison.com">Contact</a>
-<p>Neo Morrison LLC, 2601 E Chapman Ave 235, Fullerton, CA 92831. Not affiliated with OpenAI, Anthropic, Google or xAI.</p>
-</footer>
-</main>
-</div>
+<script>
+const FOLDERS = [
+  { id: 'thesis', name: 'Thesis', color: 'var(--thesis)' },
+  { id: 'code', name: 'Code snippets', color: 'var(--code)' },
+  { id: 'travel', name: 'Travel', color: 'var(--travel)' },
+  { id: 'jobs', name: 'Job search', color: 'var(--jobs)' },
+];
+const CHATS = [
+  ['Python retry decorator', 'ChatGPT', 'code'],
+  ['Lisbon trip budget', 'Gemini', 'travel'],
+  ['Thesis outline: urban heat islands', 'Claude', 'thesis'],
+  ['Cover letter for a PM role', 'ChatGPT', 'jobs'],
+  ['SQL running totals', 'Grok', 'code'],
+  ['Sources on cool roofs', 'Claude', 'thesis'],
+  ['Packing list for Porto', 'Gemini', 'travel'],
+  ['Questions to ask in interviews', 'Claude', 'jobs'],
+  ['React useEffect cleanup', 'ChatGPT', 'code'],
+  ['Feedback on my methods section', 'ChatGPT', 'thesis'],
+  ['Train times Lisbon to Porto', 'Gemini', 'travel'],
+];
+const demo = document.getElementById('demo'), list = document.getElementById('list'), state = document.getElementById('state');
+const rows = CHATS.map(([t, site, f], i) => {
+  const el = document.createElement('div');
+  el.className = 'chat'; el.dataset.f = f;
+  el.innerHTML = `<span class="tag">${site}</span><span class="t"></span>`;
+  el.querySelector('.t').textContent = t;
+  return el;
+});
+const heads = Object.fromEntries(FOLDERS.map(f => {
+  const h = document.createElement('div');
+  h.className = 'fh';
+  h.innerHTML = `<span class="sq" style="background:${f.color}"></span>${f.name}<span class="n">${CHATS.filter(c => c[2] === f.id).length}</span>`;
+  return [f.id, h];
+}));
+
+function layout(sorted) {
+  list.replaceChildren();
+  if (sorted) for (const f of FOLDERS) { list.append(heads[f.id]); rows.filter(r => r.dataset.f === f.id).forEach(r => list.append(r)); }
+  else rows.forEach(r => list.append(r));
+  demo.classList.toggle('sorted', sorted);
+  state.textContent = sorted ? 'With ThreadKeep' : 'Your sidebar today';
+  demo.querySelectorAll('.toggle button').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.v === 'folders') === sorted)));
+}
+
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let sorted = false;
+function go(next) {
+  if (next === sorted) return;
+  const before = new Map(rows.map(r => [r, r.getBoundingClientRect()]));
+  layout(next); sorted = next;
+  if (still) return;
+  rows.forEach((r, i) => {
+    const a = before.get(r), b = r.getBoundingClientRect();
+    r.animate([{ transform: `translate(${a.left - b.left}px, ${a.top - b.top}px)` }, { transform: 'none' }],
+      { duration: 700, delay: i * 25, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+  });
+}
+layout(false);
+demo.querySelectorAll('.toggle button').forEach(b => b.addEventListener('click', () => { auto = false; go(b.dataset.v === 'folders'); }));
+let auto = true;
+new IntersectionObserver((es, o) => {
+  if (es[0].isIntersecting) { o.disconnect(); setTimeout(() => auto && go(true), still ? 0 : 1100); }
+}, { threshold: .6 }).observe(demo);
+
+const header = document.querySelector('header');
+addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 8), { passive: true });
+</script>
 </body></html>
