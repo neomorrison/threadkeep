@@ -38,7 +38,7 @@ h1{font-size:clamp(46px,8vw,92px);line-height:.95;font-weight:800;letter-spacing
 
 /* The demo: one long list sorts itself into folders. */
 .stage{margin:64px auto 0;max-width:900px;display:grid;grid-template-columns:300px 1fr;border:1px solid var(--rule);border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(18,17,23,.25),0 2px 6px rgba(18,17,23,.04);text-align:left;background:#fff}
-.side{background:#f9f9fb;border-right:1px solid var(--rule);padding:16px 12px;min-height:520px}
+.side{background:#f9f9fb;border-right:1px solid var(--rule);padding:16px 12px;height:610px;overflow:hidden}
 .side .top{display:flex;align-items:center;justify-content:space-between;padding:0 6px 12px;font-size:13px;color:var(--faint)}
 .toggle{display:inline-flex;background:#eceaf1;border-radius:8px;padding:3px}
 .toggle button{font:inherit;font-size:13px;border:0;background:none;padding:4px 10px;border-radius:6px;color:var(--soft);cursor:pointer}
@@ -114,7 +114,7 @@ footer a{color:var(--soft);text-decoration:none;margin-right:20px}footer a:hover
 @media (max-width:860px){
 .bar nav{display:none}
 .hero{padding-top:56px}
-.stage{grid-template-columns:1fr}.main{display:none}.side{border-right:0;min-height:0}
+.stage{grid-template-columns:1fr}.main{display:none}.side{border-right:0}
 section.feat{padding-top:96px}.feat .row{grid-template-columns:1fr;gap:36px}.feat.flip .copy{order:0}
 .pic{padding:20px}
 .facts,.plans{grid-template-columns:1fr}.facts div,.plan{border-right:0;border-bottom:1px solid var(--rule)}.plan:last-child{border-bottom:0}
