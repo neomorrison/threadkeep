@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://neomorrison.github.io/threadkeep/sitemap.xml
+Sitemap: https://threadkeep.neomorrison.com/sitemap.xml
