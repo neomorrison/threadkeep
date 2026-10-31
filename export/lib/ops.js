@@ -3,7 +3,7 @@
 import { buildClaudePackage } from './claude.js';
 import { FORMATS, chatFileName, toMarkdown } from './export.js';
 import { conversationToPdf } from './pdf.js';
-import { SOURCE_LABEL, uniqueNamer } from './util.js';
+import { SOURCE_LABEL, parseQuery, uniqueNamer } from './util.js';
 
 export const PRO_REQUIRED = 'pro_required';
 
@@ -52,12 +52,6 @@ export async function claudeZip(JSZip, convs, { pro, ...options }) {
 }
 
 /** Case-insensitive AND search. Quoted phrases stay together. Returns hits per conversation and a snippet. */
-export function parseQuery(q) {
-  const terms = [];
-  for (const m of q.matchAll(/"([^"]+)"|(\S+)/g)) terms.push((m[1] ?? m[2]).toLowerCase());
-  return terms;
-}
-
 export function searchConversations(convs, q) {
   const terms = parseQuery(q);
   if (!terms.length) return [];

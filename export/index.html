@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src https://license-live-production.up.railway.app; worker-src blob:; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChatGPT Export Viewer: Open conversations.json, Search, Export to Markdown</title>
+<meta name="description" content="Open your ChatGPT, Claude, Gemini or Grok export in the browser. Read and search every chat, export to Markdown. Free, and your files never leave your computer.">
+<link rel="canonical" href="https://threadkeep.neomorrison.com/export/">
+<link rel="icon" href="../icon-128.png">
+<link rel="stylesheet" href="export.css">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "WebApplication",
+ "name": "ThreadKeep Export Viewer",
+ "url": "https://threadkeep.neomorrison.com/export/",
+ "description": "Opens ChatGPT, Claude, Gemini and Grok data exports in the browser. Read, search and export chats to Markdown or text. Bulk export and a ChatGPT-to-Claude helper come with a ThreadKeep Pro license.",
+ "applicationCategory": "UtilitiesApplication",
+ "operatingSystem": "Any modern browser",
+ "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+ "publisher": {"@type": "Organization", "name": "Neo Morrison LLC", "url": "https://threadkeep.neomorrison.com/"}
+}</script>
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {"@type": "Question", "name": "How do I open conversations.json from a ChatGPT export?", "acceptedAnswer": {"@type": "Answer", "text": "Drop the export zip, or the conversations.json inside it, onto the box on this page. The file is read in your browser and nothing is uploaded."}},
+  {"@type": "Question", "name": "How do I export a ChatGPT conversation to Markdown?", "acceptedAnswer": {"@type": "Answer", "text": "Open your export here, pick the chat, and choose Download Markdown. Code blocks keep their language."}},
+  {"@type": "Question", "name": "Does the viewer upload my chats?", "acceptedAnswer": {"@type": "Answer", "text": "No. The page's Content-Security-Policy blocks every network connection except the ThreadKeep license check, which only sends a license key."}}
+ ]
+}</script>
+</head>
+<body>
+<header><div class="wrap bar">
+<a class="brand" href="../"><img src="../icon-128.png" alt="">ThreadKeep</a>
+<nav aria-label="Main"><a href="#tool">Viewer</a><a href="chatgpt-to-claude.html">ChatGPT to Claude</a><a href="#help">Questions</a></nav>
+<button class="btn small ghost" id="btnPro" type="button"><span data-pro-label>Unlock Pro</span></button>
+</div></header>
+
+<main>
+<div class="wrap top">
+<h1>View your ChatGPT export in the browser.</h1>
+<p class="lede">A conversations.json viewer for ChatGPT, Claude, Gemini and Grok data exports. Read any chat, search all of them, and save one as Markdown or text. Nothing is uploaded.</p>
+</div>
+
+<div class="wrap" id="tool">
+<div class="drop" id="drop">
+<div class="idle">
+<h2>Drop your export here</h2>
+<p class="formats">ChatGPT .zip or conversations.json, Claude .zip, Gemini Takeout (MyActivity.json or .html, or the Takeout .zip), Grok .zip.</p>
+<div class="row">
+<button class="btn" id="pick" type="button">Choose a file</button>
+<button class="btn ghost" id="sample" type="button">Try a sample</button>
+</div>
+<input id="file" type="file" accept=".zip,.json,.html,application/zip,application/json,text/html" hidden>
+<p class="private">Your file is read inside this page. Its security policy allows one network connection, the license check for Pro, and that sends only a license key. <a href="#private">How to check</a></p>
+</div>
+<div class="busy" role="status"><p id="busy"></p><progress id="progress" hidden></progress></div>
+</div>
+<p class="status" id="status" role="status" hidden></p>
+
+<div class="work" id="work" hidden>
+<div class="wbar">
+<span class="name" id="fileName"></span><span class="counts" id="counts"></span>
+<span id="gapRow" hidden><label class="fine" for="gap">Gemini sessions: </label><select id="gap" class="auto"><option value="30">30 min gap</option><option value="120">2 hour gap</option><option value="0">Each prompt alone</option></select></span>
+<button class="btn small ghost" id="another" type="button">Open another file</button>
+</div>
+<div class="cols">
+<aside class="listpane" aria-label="Chats">
+<div class="filters">
+<input type="search" id="q" placeholder="Search every message" aria-label="Search every message" autocomplete="off">
+<div class="frow">
+<select id="fSource" aria-label="Source" hidden></select>
+<select id="sort" aria-label="Sort"><option value="rel" hidden>Best match</option><option value="new" selected>Newest first</option><option value="old">Oldest first</option><option value="az">Title A to Z</option><option value="long">Most messages</option></select>
+</div>
+<div class="frow"><label>From<input type="date" id="fFrom"></label><label>To<input type="date" id="fTo"></label></div>
+</div>
+<div class="selbar"><label><input type="checkbox" id="selAll" aria-label="Select all chats in the list"></label><span class="grow" id="selCount"></span><span id="shownCount"></span><span id="searching" class="fine" hidden>Searching...</span></div>
+<ul class="list" id="list"></ul>
+<button class="btn ghost small more" id="more" type="button" hidden></button>
+<div class="acts"><button class="btn small" id="btnExport" type="button">Export selection <span class="lock">Pro</span></button><button class="btn small" id="btnClaude" type="button">Move to Claude <span class="lock">Pro</span></button></div>
+</aside>
+<section class="reader" id="reader" aria-live="polite"></section>
+</div>
+</div>
+</div>
+
+<dialog id="dlgExport"><div class="dlg">
+<button class="btn small ghost x" data-close type="button">Close</button>
+<h2>Export many chats</h2>
+<div class="locked">
+<p class="soft">Bulk export is part of ThreadKeep Pro. Reading, searching and one chat at a time stay free.</p>
+<form class="keyform" autocomplete="off"><input type="text" name="key" placeholder="License key" aria-label="License key" spellcheck="false"><button class="btn" type="submit">Unlock</button></form>
+<p class="err" role="alert"></p>
+<p class="buy">No key yet? <a href="https://license-live-production.up.railway.app/buy/lifetime">$59 once</a> or <a href="https://license-live-production.up.railway.app/buy/monthly">$4.99 a month</a>. The same license unlocks the ThreadKeep extension.</p>
+</div>
+<form class="unlocked opts" id="formExport">
+<p class="soft">Builds a zip in your browser.</p>
+<fieldset><legend>Which chats</legend>
+<label class="opt"><input type="radio" name="scope" value="selected"> <span></span></label>
+<label class="opt"><input type="radio" name="scope" value="shown"> <span></span></label>
+<label class="opt"><input type="radio" name="scope" value="all"> <span></span></label>
+</fieldset>
+<fieldset><legend>Format</legend>
+<select name="format" aria-label="Format"><option value="md">Markdown, one file per chat</option><option value="pdf">PDF, one file per chat</option><option value="json">JSON, one file per chat plus an index</option></select>
+<label class="opt"><input type="checkbox" name="frontmatter"> Add Obsidian-style front matter to Markdown (title, source, dates, tags)</label>
+</fieldset>
+<div class="go"><button class="btn" type="submit">Build zip</button></div>
+<p class="out" role="status"></p>
+</form>
+</div></dialog>
+
+<dialog id="dlgClaude"><div class="dlg">
+<button class="btn small ghost x" data-close type="button">Close</button>
+<h2>Move chats to Claude</h2>
+<div class="locked">
+<p class="soft">This makes files you can add to a Claude Project, with steps for adding them. It is part of ThreadKeep Pro. <a href="chatgpt-to-claude.html">How it works</a>.</p>
+<form class="keyform" autocomplete="off"><input type="text" name="key" placeholder="License key" aria-label="License key" spellcheck="false"><button class="btn" type="submit">Unlock</button></form>
+<p class="err" role="alert"></p>
+<p class="buy">No key yet? <a href="https://license-live-production.up.railway.app/buy/lifetime">$59 once</a> or <a href="https://license-live-production.up.railway.app/buy/monthly">$4.99 a month</a>.</p>
+</div>
+<form class="unlocked opts" id="formClaude">
+<p class="soft">Builds Markdown files sized for a Claude Project, newest chats first.</p>
+<fieldset><legend>Which chats</legend>
+<label class="opt"><input type="radio" name="scope" value="selected"> <span></span></label>
+<label class="opt"><input type="radio" name="scope" value="shown"> <span></span></label>
+<label class="opt"><input type="radio" name="scope" value="all"> <span></span></label>
+</fieldset>
+<fieldset><legend>Files</legend>
+<label class="opt"><input type="radio" name="mode" value="combined" checked> A few combined files</label>
+<label class="opt"><input type="radio" name="mode" value="perChat"> One file per chat</label>
+</fieldset>
+<fieldset><legend>Size limit for everything together</legend>
+<select name="budget" aria-label="Total size"><option value="150000" selected>About 150,000 tokens (fits Claude's context window)</option><option value="500000">About 500,000 tokens (needs project search)</option><option value="1000000">About 1,000,000 tokens (needs project search)</option><option value="0">No limit</option></select>
+<p class="fine">Tokens are estimated at 4 characters each. Anthropic sets the real limits and can change them.</p>
+</fieldset>
+<fieldset><legend>Largest single file</legend>
+<select name="filesize" aria-label="Largest file"><option value="250000">250 KB</option><option value="600000" selected>600 KB</option><option value="2000000">2 MB</option></select>
+<label class="opt"><input type="checkbox" name="compact" checked> Compact: leave out tool output and shorten very long messages</label>
+</fieldset>
+<div class="go"><button class="btn" type="submit">Build files for Claude</button></div>
+<p class="out" role="status"></p>
+</form>
+</div></dialog>
+
+<dialog id="dlgLicense"><div class="dlg">
+<button class="btn small ghost x" data-close type="button">Close</button>
+<h2>ThreadKeep Pro</h2>
+<div class="locked">
+<p class="soft">Pro unlocks bulk export (Markdown, PDF, JSON), exporting a filtered set, and the move to Claude. Paste the key from your purchase email.</p>
+<form class="keyform" autocomplete="off"><input type="text" name="key" placeholder="License key" aria-label="License key" spellcheck="false"><button class="btn" type="submit">Unlock</button></form>
+<p class="err" role="alert"></p>
+<p class="buy"><a href="https://license-live-production.up.railway.app/buy/lifetime">$59 once</a> or <a href="https://license-live-production.up.railway.app/buy/monthly">$4.99 a month</a>. A key works on up to 3 devices, and this browser uses one.</p>
+</div>
+<div class="unlocked">
+<p class="soft" id="keyInfo"></p>
+<p>Pro is unlocked on this browser.</p>
+<button class="btn ghost" id="removeKey" type="button">Remove the key from this browser</button>
+</div>
+</div></dialog>
+
+<div class="wrap">
+<section class="prose" id="get">
+<h2>Where to get the export</h2>
+<p>Each service emails or prepares a download. Menu names change, so look for data export or Takeout if a label differs.</p>
+<ol>
+<li><strong>ChatGPT:</strong> Settings, Data controls, Export data. You get an email with a link to a zip that holds <code class="i">conversations.json</code> and <code class="i">chat.html</code>. Drop the zip as it is.</li>
+<li><strong>Claude:</strong> Settings, Privacy, Export data. The email links a zip with <code class="i">conversations.json</code>.</li>
+<li><strong>Gemini:</strong> Google Takeout (takeout.google.com), choose My Activity, then pick only Gemini Apps. Drop the Takeout zip, or the <code class="i">MyActivity.json</code> inside it.</li>
+<li><strong>Grok:</strong> the data export in your Grok account settings. Grok support is the least tested of the four, because its export format is not documented.</li>
+</ol>
+</section>
+
+<section class="prose" id="plans">
+<h2>What is free and what is Pro</h2>
+<table class="cmp">
+<tr><th>Free</th><td>Open any export. Browse every chat. Search every message. Read chats with code blocks, images shown as placeholders and attachment names. Download one chat at a time as Markdown or plain text, or copy it.</td></tr>
+<tr><th>With ThreadKeep Pro</th><td>Export everything, or just the chats you searched for or ticked, as one zip of Markdown, PDF or JSON files. Obsidian-style front matter. Move chats to Claude as files sized for a Claude Project. Pro is $59 once or $4.99 a month, and the same key unlocks the <a href="../">ThreadKeep browser extension</a>.</td></tr>
+</table>
+</section>
+
+<section class="prose" id="private">
+<h2>Your files stay in this tab</h2>
+<p>This page reads your export with JavaScript running on your computer, and a web worker does the heavy parsing so big files do not freeze the page. The page's Content-Security-Policy, set in its HTML head, blocks every connection except one: the ThreadKeep license check. That check sends the license key and a device label, only after you unlock Pro. It never carries chat text.</p>
+<p>To verify it yourself, open your browser's developer tools, switch to the Network tab, and drop a file. You should see no requests at all. You can also read the policy with View Source, and the code in this folder is not minified, apart from the zip library.</p>
+</section>
+
+<section class="prose" id="help">
+<h2>Questions</h2>
+<details><summary>How do I open conversations.json?</summary><p>Drop the ChatGPT export zip, or the conversations.json from inside it, onto the box above. Newer ChatGPT exports can split chats across several files such as conversations-000.json, and the viewer reads them all.</p></details>
+<details><summary>Which version of a ChatGPT conversation do I see?</summary><p>ChatGPT stores a conversation as a tree, because editing a message or regenerating an answer creates a new branch. The viewer follows the branch you were last on, which is what you saw in ChatGPT. Older versions of edited messages are not shown.</p></details>
+<details><summary>What happens to images and files?</summary><p>Images appear as a placeholder with the file name, and attachments are listed by name, size and type. The files inside your zip are not extracted in this version.</p></details>
+<details><summary>How large a file can it open?</summary><p>The conversations file is read as a stream, so a single JSON file of several hundred megabytes works. A zip is loaded into memory first, and browsers cap that at about 2 GB. If a very large zip fails, unzip it and drop conversations.json instead.</p></details>
+<details><summary>Why are my Gemini chats grouped oddly?</summary><p>Google's Takeout lists each prompt and answer as a separate activity with no conversation id. The viewer groups prompts that are close together in time into one session. You can change the gap, or show each prompt alone.</p></details>
+<details><summary>Is this made by OpenAI, Anthropic, Google or xAI?</summary><p>No. It is a free tool from the makers of ThreadKeep, an independent product from Neo Morrison LLC.</p></details>
+</section>
+
+<div class="cta">
+<h2>Keep your chats organized as you go.</h2>
+<p>An export is a snapshot. ThreadKeep adds folders, search and one-click export inside ChatGPT, Claude, Gemini and Grok themselves.</p>
+<a class="btn" href="../">See ThreadKeep</a>
+</div>
+</div>
+</main>
+
+<footer><div class="wrap">
+<a class="brand foot" href="../"><img src="../icon-128.png" alt="">ThreadKeep</a>
+<p>Neo Morrison LLC, 2601 E Chapman Ave 235, Fullerton, CA 92831. Not affiliated with OpenAI, Anthropic, Google or xAI.</p>
+<a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="mailto:contact@neomorrison.com">Contact</a><a href="chatgpt-to-claude.html">Move ChatGPT history to Claude</a>
+</div></footer>
+
+<script src="worker-bundle.js"></script>
+<script type="module" src="app.js"></script>
+</body></html>

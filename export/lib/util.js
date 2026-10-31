@@ -74,3 +74,10 @@ export function uniqueNamer() {
     return candidate;
   };
 }
+
+/** Search terms from a query: words, or "quoted phrases" kept together. Lowercased. */
+export function parseQuery(q) {
+  const terms = [];
+  for (const m of String(q).matchAll(/"([^"]+)"|(\S+)/g)) terms.push((m[1] ?? m[2]).toLowerCase());
+  return terms;
+}

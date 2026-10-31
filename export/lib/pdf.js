@@ -72,7 +72,7 @@ class Doc {
   need(h) { if (this.y - h < MARGIN) this.newPage(); }
   text(str, { font = 'F1', size = 10, lead = size * 1.4, x = MARGIN, gray = 0.1, bg = null, bgW = 0 } = {}) {
     this.need(lead);
-    if (bg != null) this.cur.push(`${bg} g ${x - 4} ${(this.y - lead + size * 0.3).toFixed(2)} ${bgW} ${lead.toFixed(2)} re f`);
+    if (bg != null) this.cur.push(`${bg} g ${x - 4} ${(this.y - lead).toFixed(2)} ${bgW} ${lead.toFixed(2)} re f`);
     this.cur.push(`BT ${gray} g /${font} ${size} Tf ${x.toFixed(2)} ${(this.y - size).toFixed(2)} Td (${esc(str)}) Tj ET`);
     this.y -= lead;
   }

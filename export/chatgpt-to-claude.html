@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Move ChatGPT History to Claude: Export, Convert, Add to a Project</title>
+<meta name="description" content="How to move your ChatGPT chat history to Claude. Export your data, convert it to Markdown files sized for a Claude Project, and add them. Done in your browser.">
+<link rel="canonical" href="https://threadkeep.neomorrison.com/export/chatgpt-to-claude.html">
+<link rel="icon" href="../icon-128.png">
+<link rel="stylesheet" href="export.css">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "HowTo",
+ "name": "Move your ChatGPT history to Claude",
+ "description": "Export your ChatGPT data, convert the chats to Markdown files, and add them to a Claude Project as knowledge.",
+ "step": [
+  {"@type": "HowToStep", "position": 1, "name": "Export your ChatGPT data", "text": "In ChatGPT open Settings, Data controls, Export data. ChatGPT emails a link to a zip file that contains conversations.json."},
+  {"@type": "HowToStep", "position": 2, "name": "Open the zip in the ThreadKeep viewer", "text": "Drop the zip on threadkeep.neomorrison.com/export/. It is read in your browser and not uploaded."},
+  {"@type": "HowToStep", "position": 3, "name": "Choose the chats", "text": "Search, filter by date or tick the chats you want Claude to know about."},
+  {"@type": "HowToStep", "position": 4, "name": "Build the Claude files", "text": "Use Move to Claude to make Markdown files sized for a Claude Project, with an index and instructions."},
+  {"@type": "HowToStep", "position": 5, "name": "Add them to a Claude Project", "text": "In Claude create a Project, add the files as project knowledge, and paste the suggested project instructions."}
+ ]
+}</script>
+</head>
+<body>
+<header><div class="wrap bar">
+<a class="brand" href="../"><img src="../icon-128.png" alt="">ThreadKeep</a>
+<nav aria-label="Main"><a href="./">Export viewer</a><a href="#steps">Steps</a><a href="#help">Questions</a></nav>
+<a class="btn small" href="./">Open the viewer</a>
+</div></header>
+
+<main>
+<div class="wrap top">
+<h1>Move your ChatGPT history to Claude.</h1>
+<p class="lede">Claude can import your preferences and memory from ChatGPT, but not your old conversations. This is how to carry the conversations over, so a Claude Project can answer "what did we decide about that?"</p>
+</div>
+
+<div class="wrap">
+<section class="prose" id="steps">
+<h2>The steps</h2>
+<ol>
+<li><strong>Export your data from ChatGPT.</strong> Settings, Data controls, Export data. ChatGPT emails you a link to a zip. The zip holds <code class="i">conversations.json</code>, every chat you have not deleted, plus a <code class="i">chat.html</code> copy.</li>
+<li><strong>Open the zip in the <a href="./">ThreadKeep export viewer</a>.</strong> Drop it on the page. It is read in your browser and not uploaded. You can search it and read any chat for free.</li>
+<li><strong>Choose what Claude should know.</strong> You probably do not want all 2,000 chats. Search for a topic, filter by date, or tick the ones that matter: projects you are still working on, decisions, code you reuse.</li>
+<li><strong>Press Move to Claude.</strong> The tool builds a zip of Markdown files, newest chats first, cut to a size you pick. It also writes an index of what is inside and a short instructions text for the Project. This step needs a <a href="./#plans">ThreadKeep Pro license</a>.</li>
+<li><strong>Add the files to a Claude Project.</strong> In Claude, create a Project, add the files from the <code class="i">upload-these</code> folder as project knowledge, and paste the text from <code class="i">project-instructions.txt</code> into the Project's instructions. The zip includes these steps as <code class="i">README-add-to-claude.md</code>.</li>
+</ol>
+</section>
+
+<section class="prose" id="what">
+<h2>What Anthropic's import does and does not cover</h2>
+<p>Anthropic's own memory import works by having you ask ChatGPT to summarize what it remembers about you, then pasting that summary into Claude. The result is a profile of your preferences and context. It does not bring over individual conversations, the code you wrote in them, or the details of past decisions. That is the gap this fills. If you only want Claude to know your preferences, the official import is the shorter route.</p>
+<p>Moving conversations also has limits worth knowing. Claude reads project knowledge as text, so images, generated files and ChatGPT's tool output do not come across in a useful form. Long chats are shortened in compact mode. And a Claude Project can only hold so much: Anthropic sets those limits and can change them, so check Claude's help pages if an upload is refused. The tool lets you choose a smaller total size and re-export.</p>
+</section>
+
+<section class="prose" id="choose">
+<h2>Choosing which chats to move</h2>
+<ul>
+<li><strong>By topic.</strong> Search a word or "a quoted phrase", press the checkbox above the list to tick everything found, then move just those.</li>
+<li><strong>By date.</strong> Set From and To to take the last six months, for example.</li>
+<li><strong>By size.</strong> The default limit is about 150,000 tokens, which fits Claude's context window. A larger limit works with project search, where Claude looks up the relevant files instead of reading all of them.</li>
+</ul>
+<p>Combined files hold several chats each and are the better default, because Claude limits how many files a chat or project takes. One file per chat keeps titles as file names, which is handy for a small selection.</p>
+</section>
+
+<section class="prose" id="help">
+<h2>Questions</h2>
+<details><summary>Is my ChatGPT data uploaded anywhere?</summary><p>No. The viewer runs in your browser, and its security policy blocks every connection except the license check. See <a href="./#private">how to verify this</a>.</p></details>
+<details><summary>Does this work from a Claude or Gemini export too?</summary><p>The viewer opens Claude, Gemini and Grok exports, and Move to Claude works on any of them. The page is about ChatGPT because that is the move most people ask about.</p></details>
+<details><summary>Is the official memory import enough?</summary><p>If you want Claude to know your preferences, yes. If you want it to be able to look up what you worked out in a specific old conversation, it will not, because those conversations are not part of memory.</p></details>
+<details><summary>What does it cost?</summary><p>Reading, searching and exporting single chats are free. Move to Claude and bulk export need ThreadKeep Pro, $59 once or $4.99 a month.</p></details>
+</section>
+
+<div class="cta">
+<h2>Open your export.</h2>
+<p>Drop the zip, search it, and see what you have. It takes a minute and nothing leaves your computer.</p>
+<a class="btn" href="./#tool">Open the viewer</a>
+</div>
+</div>
+</main>
+
+<footer><div class="wrap">
+<a class="brand foot" href="../"><img src="../icon-128.png" alt="">ThreadKeep</a>
+<p>Neo Morrison LLC, 2601 E Chapman Ave 235, Fullerton, CA 92831. Not affiliated with OpenAI, Anthropic, Google or xAI.</p>
+<a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="mailto:contact@neomorrison.com">Contact</a><a href="./">Export viewer</a>
+</div></footer>
+</body></html>
